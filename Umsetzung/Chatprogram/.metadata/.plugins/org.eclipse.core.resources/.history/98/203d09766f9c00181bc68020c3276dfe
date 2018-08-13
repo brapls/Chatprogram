@@ -1,0 +1,11 @@
+package ch.nyp.chatprogram.common;
+
+public class Authorization {
+
+	private String usertoken;
+	private UserApplication user;
+	public Authorization() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,36 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+import javax.swing.JPanel;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import javax.swing.JTable;
+
+import ch.nyp.chatprogram.common.UserSession;
+
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.List;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+
+public class SessionForm  extends JPanel {
+	private JTable jtable;
+
+	public SessionForm() {
+		
+		
+		List<UserSession> sessionList = UserSession.GetAllSessions();
+		Object[] columnName = {"Username", "IP", "Zuletzt Gepingt", "Token"};
+		Object[][] data = new String[sessionList.size()][columnName.length];
+		for(int row=0;row<sessionList.size();row++) {
+			UserSession userSession = sessionList.get(row);
+			data[row] = new String[]{userSession.GetUser().GetUsername(), userSession.GetSessionIP(), userSession.GetLastPing().toString(), userSession.GetToken()};
+		}
+		setLayout(new GridLayout(0, 1, 0, 0));
+		jtable = new JTable(data, columnName);
+		add(jtable);
+		// TODO Auto-generated constructor stub
+	}
+
+}

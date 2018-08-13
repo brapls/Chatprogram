@@ -1,0 +1,9 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+public class AccounSelectionForm {
+
+	public AccounSelectionForm() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,88 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import javax.swing.JTable;
+
+import ch.nyp.chatprogram.common.UserSession;
+
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.List;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+public class SessionForm  extends JPanel {
+	private JTable jtable;
+
+	public SessionForm() {
+		
+		List<UserSession> sessionList = UserSession.GetAllSessions();
+		String[] columnName = {"SessionId","Username", "IP", "Zuletzt Gepingt", "Token"};
+		Object[][] data = new Object[sessionList.size()][columnName.length];
+		for(int row = 0; row<sessionList.size(); row++) {
+			UserSession userSession = sessionList.get(row);
+			data[row] = new Object[]{userSession.GetSessionId() ,userSession.GetUser().GetUsername(), userSession.GetSessionIP(), userSession.GetLastPing().toString(), userSession.GetToken()};
+		}
+		
+		JLabel lblNewLabel = new JLabel("Sessions");
+		jtable = new JTable(data, columnName);
+		jtable.setFillsViewportHeight(true);
+		jtable.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		JScrollPane scrollPnl = new JScrollPane(jtable);
+		
+		JButton btnStopSelectedSession = new JButton("Ausgew\u00E4hlte Session stopen");
+		btnStopSelectedSession.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(jtable.getSelectedRow() != -1)
+					UserSession.DestroySession((int)jtable.getValueAt(jtable.getSelectedRow(), 0));
+			}
+		});
+		
+		JButton btnReturn = new JButton("Zur\u00FCck");
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(228)
+							.addComponent(lblNewLabel))
+						.addComponent(scrollPnl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnStopSelectedSession)
+							.addPreferredGap(ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+							.addComponent(btnReturn)))
+					.addContainerGap(9, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(5)
+					.addComponent(lblNewLabel)
+					.addGap(5)
+					.addComponent(scrollPnl, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnStopSelectedSession)
+						.addComponent(btnReturn))
+					.addContainerGap(138, Short.MAX_VALUE))
+		);
+		setLayout(groupLayout);
+		// TODO Auto-generated constructor stub
+	}
+}

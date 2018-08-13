@@ -1,0 +1,9 @@
+package ChatClient;
+
+public class ClientDatabase {
+
+	public ClientDatabase() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

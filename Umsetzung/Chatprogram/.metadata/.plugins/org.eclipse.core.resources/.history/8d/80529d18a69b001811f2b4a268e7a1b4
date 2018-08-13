@@ -1,0 +1,46 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import javax.swing.JTable;
+
+import ch.nyp.chatprogram.common.UserSession;
+
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.List;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.BoxLayout;
+
+public class SessionForm  extends JPanel {
+	private JTable jtable;
+
+	public SessionForm() {
+		
+		List<UserSession> sessionList = UserSession.GetAllSessions();
+		String[] columnName = {"Username", "IP", "Zuletzt Gepingt", "Token"};
+		Object[][] data = new String[sessionList.size()][columnName.length];
+		for(int row = 0; row<sessionList.size(); row++) {
+			UserSession userSession = sessionList.get(row);
+			data[row] = new String[]{userSession.GetUser().GetdisplayName(), userSession.GetSessionIP(), userSession.GetLastPing().toString(), userSession.GetToken()};
+		}
+		setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		add(lblNewLabel);
+		jtable = new JTable(data, columnName);
+		jtable.setFillsViewportHeight(true);
+		jtable.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		JScrollPane scrollPnl = new JScrollPane(jtable);
+		
+		add(scrollPnl);
+		// TODO Auto-generated constructor stub
+	}
+
+}

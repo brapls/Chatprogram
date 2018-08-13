@@ -1,0 +1,2 @@
+insert into ChatProgramTui.Session (userId, sesIP, sesLastPing, sesToken)
+values (1, "IP", TO_TIMESTAMP(:ts_val, 'YYYY-MM-DD HH24:MI:SS'), "token" )

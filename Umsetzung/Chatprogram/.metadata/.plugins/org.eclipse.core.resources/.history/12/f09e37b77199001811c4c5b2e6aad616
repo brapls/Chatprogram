@@ -1,0 +1,122 @@
+package ch.nyp.chatprogram.chatprogramtui;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import ch.nyp.chatprogram.common.*;
+
+public class Main {
+	// JDBC driver name and database URL
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+
+	// Database credentials
+	static String username = "";
+	static String password = "";
+	static Statement stmt = null;
+
+	public static void main(String[] args) {
+		// Login start
+		Boolean userIsAuthorized = false;
+		// while(!userIsAuthorized) {
+		Boolean usernameIsValid = false;
+		while (!usernameIsValid) {
+			System.out.println("Geben Sie bitte Ihren Username ein:");
+			String scanResult = new Scanner(System.in).nextLine();
+			if (scanResult.isEmpty()) {
+				System.out.println("Der Username darf nicht leer sein.");
+			} else if (scanResult.length() < 5) {
+				System.out.println("Der Username muss länger als fünf Zeichen sein.");
+			} else if (scanResult.length() > 50) {
+				System.out.println("Der Username darf maximal fünfzig Zeichen lang sein.");
+			} else {
+				username = scanResult;
+				usernameIsValid = true;
+			}
+		}
+		Boolean passwordIsValid = false;
+		while (!passwordIsValid) {
+			System.out.println("Geben Sie bitte Ihr Passwort ein:");
+			String scanResult = new Scanner(System.in).nextLine();
+			if (scanResult.isEmpty()) {
+				System.out.println("Das Passwort darf nicht leer sein.");
+			} else if (scanResult.length() < 5) {
+				System.out.println("Das Passwort muss länger als fünf Zeichen sein.");
+			} else if (scanResult.length() > 50) {
+				System.out.println("Das Passwort darf maximal fünfzig Zeichen lang sein.");
+			} else {
+				password = scanResult;
+				passwordIsValid = true;
+			}
+			// }
+		}
+		System.out.println("mit Datenbank verbunden? " + DataConnection.DoesDatabaseExist());
+		
+		String menuChoice = "";
+		while (!menuChoice.equals("3")) {
+			System.out.println("Menü \n 1: Datenbank erstellen \n 2: Admin account erstellen\n 3: Abmelden\n 4: Alle user anzeigen lassen(wird später aufs Admin GUI migriert)");
+			menuChoice = new Scanner(System.in).next();
+			if (menuChoice.equals("1")) {
+				System.out.println("Datenbank erstellen");
+				if(DataConnection.DoesDatabaseExist()) {
+					System.out.println("Die Datenbank existiert bereits");
+				}else {
+					new DataConnection().CreateDatabase(username, password);
+				}
+			}
+			if (menuChoice.equals("2")) {
+				System.out.println("Admin account erstellen");
+				String newUsername = "";
+				String newPassword = "";
+				Boolean newUsernameIsValid = false;
+				Boolean newPasswordIsValid = false;
+				while (!newUsernameIsValid) {
+
+					System.out.println("Geben Sie bitte den neuen Username ein:");
+					String scanResult = new Scanner(System.in).nextLine();
+					if (scanResult.isEmpty()) {
+						System.out.println("Der Username darf nicht leer sein.");
+					} else if (scanResult.length() < 5) {
+						System.out.println("Der Username muss länger als fünf Zeichen sein.");
+					} else if (scanResult.length() > 50) {
+						System.out.println("Der Username darf maximal fünfzig Zeichen lang sein.");
+					} else {
+						newUsername = scanResult;
+						newUsernameIsValid = true;
+					}
+				}
+				while (!newPasswordIsValid) {
+					System.out.println("Geben Sie bitte das neue Passwort ein:");
+					String scanResult = new Scanner(System.in).nextLine();
+					if (scanResult.isEmpty()) {
+						System.out.println("Das Passwort darf nicht leer sein.");
+					} else if (scanResult.length() < 5) {
+						System.out.println("Das Passwort muss länger als fünf Zeichen sein.");
+					} else if (scanResult.length() > 50) {
+						System.out.println("Das Passwort darf maximal fünfzig Zeichen lang sein.");
+					} else {
+						newPassword = scanResult;
+						newPasswordIsValid = true;
+					}
+					DataConnection.InsertUserApplication(new UserApplication(0, newUsername, newPassword, newUsername, true));
+				}
+			}
+			if (menuChoice.equals("3")) {
+				System.out.println("Aufwiedersehen");
+			}
+			if(menuChoice.equals("4")) {
+				ArrayList<UserApplication> allAccount = DataConnection.GetAllAccounts();
+				System.out.println("ID\tUsername\tPassword\tIsAdmin");
+				for(UserApplication account : allAccount) {
+					System.out.println(account.GetUserId() + "\t" + account.GetUsername() + "\t" + account.GetPassword() + "\t" + account.GetIsAdmin());
+				};				
+			}
+			if(menuChoice.equals("5")) {
+				for(UserSession session : DataConnection.GetAllSessions())
+					System.out.println(session.GetSessionId() + session.GetSessionIP() + session.GetToken() + session.GetLastPing() + session.GetToken());
+				
+			}
+		} // end main
+
+	}
+}

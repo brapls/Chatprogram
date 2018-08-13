@@ -1,0 +1,86 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class MenuForm extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public MenuForm() {
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{50, 192, 0};
+		gridBagLayout.rowHeights = new int[]{50, 20, 23, 23, 23, 23, 35, 23, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
+		
+		JLabel label = new JLabel("Chatprogramm Admin GUI");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.anchor = GridBagConstraints.WEST;
+		gbc_label.insets = new Insets(0, 0, 5, 0);
+		gbc_label.gridx = 1;
+		gbc_label.gridy = 1;
+		add(label, gbc_label);
+		
+		JButton btnModifyCreateAccount = new JButton("Modify/ Create Account");
+		GridBagConstraints gbc_btnModifyCreateAccount = new GridBagConstraints();
+		gbc_btnModifyCreateAccount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnModifyCreateAccount.insets = new Insets(0, 0, 5, 0);
+		gbc_btnModifyCreateAccount.gridx = 1;
+		gbc_btnModifyCreateAccount.gridy = 2;
+		add(btnModifyCreateAccount, gbc_btnModifyCreateAccount);
+		
+		JButton btnDeleteAccount = new JButton("Delete Account");
+		GridBagConstraints gbc_btnDeleteAccount = new GridBagConstraints();
+		gbc_btnDeleteAccount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnDeleteAccount.insets = new Insets(0, 0, 5, 0);
+		gbc_btnDeleteAccount.gridx = 1;
+		gbc_btnDeleteAccount.gridy = 3;
+		add(btnDeleteAccount, gbc_btnDeleteAccount);
+		
+		JButton btnDeleteChat = new JButton("Delete Chat");
+		GridBagConstraints gbc_btnDeleteChat = new GridBagConstraints();
+		gbc_btnDeleteChat.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnDeleteChat.insets = new Insets(0, 0, 5, 0);
+		gbc_btnDeleteChat.gridx = 1;
+		gbc_btnDeleteChat.gridy = 4;
+		add(btnDeleteChat, gbc_btnDeleteChat);
+		
+		JButton btnStopSession = new JButton("Stop Session");
+		btnStopSession.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.frame.getContentPane().removeAll();
+				Main.frame.getContentPane().add(new MenuForm());
+				Main.frame.getContentPane().revalidate(); 
+				Main.frame.getContentPane().repaint();
+			}
+		});
+		GridBagConstraints gbc_btnStopSession = new GridBagConstraints();
+		gbc_btnStopSession.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnStopSession.insets = new Insets(0, 0, 5, 0);
+		gbc_btnStopSession.gridx = 1;
+		gbc_btnStopSession.gridy = 5;
+		add(btnStopSession, gbc_btnStopSession);
+		
+		JButton btnLogOut = new JButton("Log out");
+		GridBagConstraints gbc_btnLogOut = new GridBagConstraints();
+		gbc_btnLogOut.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnLogOut.gridx = 1;
+		gbc_btnLogOut.gridy = 7;
+		add(btnLogOut, gbc_btnLogOut);
+		
+	}
+
+}

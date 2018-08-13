@@ -1,0 +1,9 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+public class SessionObjectTableModel {
+
+	public SessionObjectTableModel() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

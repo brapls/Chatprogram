@@ -1,0 +1,24 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+import static java.awt.Color.black;
+
+import javax.swing.JFrame;
+
+import ch.nyp.chatprogram.common.*;
+public class Main {
+	public static JFrame frame;
+	public static UserApplication loggedInUser;
+
+    public static void main(String[] args) {
+        frame = new JFrame("Chat");
+        //frame.setContentPane(new LoginForm());
+        frame.setContentPane(new MenuForm());
+        //frame.setContentPane(new SimpleTableDemo());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        frame.setSize(1200, 500);
+        frame.setBackground(black);
+        frame.setResizable(true);
+    }
+}

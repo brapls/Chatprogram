@@ -1,0 +1,3 @@
+insert into CHATPROGRAMTUI.SESSION (useId, sesIP, sesLastPing, sesToken)
+values (1, 'userSession.GetSessionIP()' , '2017-11-24 08:45:41.434175', 'userSession.GetToken()');
+		

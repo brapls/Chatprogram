@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;ChatProgramTUI&apos; to &apos;ch.nyp.chatprogram.chatprogramtui&apos;&#x0D;&#x0A;- Original project: &apos;ChatprogramTUI&apos;&#x0D;&#x0A;- Original element: &apos;ChatprogramTUI/src/ChatProgramTUI&apos;&#x0D;&#x0A;- Renamed element: &apos;ChatprogramTUI/src/ch.nyp.chatprogram.chatprogramtui&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;ChatProgramTUI&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;ChatProgramTUI" name="ch.nyp.chatprogram.chatprogramtui" qualified="false" references="true" stamp="1530531848084" textual="false" version="1.0"/>
+</session>

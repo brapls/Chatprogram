@@ -1,0 +1,71 @@
+package ch.nyp.chatprogram.common;
+
+import java.util.ArrayList;
+
+public class UserApplication {
+	private int userId;
+	private String username;
+	private String password;
+	private String displayName;
+	private Boolean isAdmin = false;
+	public UserApplication() {}
+	
+	public UserApplication(int userId, String username, String password, String displayName, Boolean isAdmin) {
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.isAdmin = isAdmin;
+		this.displayName = displayName;
+	}
+	
+	public int GetUserId() {
+		return this.userId;
+	}
+	public void SetUserId(int userId) {
+		this.userId = userId;
+	}
+	public String GetUsername() {
+		return this.username;
+	}
+	public void SetUsername(String username) {
+		this.username = username;
+	}
+	public void SetPassword(String password) {
+		this.password = password;
+	}
+	public String GetPassword() {
+		return this.password;
+	}
+	public void SetIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	public Boolean GetIsAdmin() {
+		return this.isAdmin;
+	}
+	
+	public String GetdisplayName() {
+		return this.displayName;
+	}
+	public void SetDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	
+	public static UserApplication GetUserByUsernameAndPassword(String username, String password) {
+		return DataConnection.GetUserByUsernamePassword(username, password);
+	}
+	public static UserApplication GetUserById(int userId) {
+		return DataConnection.GetUserById(userId);
+	}
+	public static ArrayList<UserApplication> GetAllAccounts() {
+		return DataConnection.GetAllAccounts();
+	}
+	
+	public static void DeleteAccount(int accountId) {
+		DataConnection.DeleteAccountById(accountId);
+	}
+	
+	public static Boolean UsernameExists(String username) {
+		//TODO Create Method
+		return false;
+	}
+}

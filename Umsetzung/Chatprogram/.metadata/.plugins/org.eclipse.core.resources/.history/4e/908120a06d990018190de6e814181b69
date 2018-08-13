@@ -1,0 +1,47 @@
+package ch.nyp.chatprogram.common;
+
+import java.time.LocalDateTime;
+
+public class UserSession {
+	int sessionId = 0;
+	UserApplication user= new UserApplication();
+	String sessionIP = "";
+	LocalDateTime lastPing = LocalDateTime.now();
+	String token = "";
+	public UserSession() {
+		
+	}
+	public int GetSessionId() {
+		return this.sessionId;
+	}
+	public void SetSessionId(int sessionId) {
+		this.sessionId = sessionId;
+	}
+	public UserApplication GetUser() {
+		return this.user;
+	}
+	public void SetUser(UserApplication user) {
+		this.user = user;
+	}
+	public String GetSessionIP(){
+		return this.sessionIP;
+	}
+	public void SetSessionIP(String sessionIP) {
+		this.sessionIP = sessionIP;
+	}
+	public LocalDateTime GetLastPing() {
+		return this.lastPing;
+	}
+	public void SetLastPing(LocalDateTime lastPing) {
+		this.lastPing = lastPing;
+	}
+	public String GetToken() {
+		return this.token;
+	}
+	public void SetToken(String token) {
+		this.token = token;
+	}
+	static public ArrayList<UserSession> allSessions(){
+		
+	}
+}

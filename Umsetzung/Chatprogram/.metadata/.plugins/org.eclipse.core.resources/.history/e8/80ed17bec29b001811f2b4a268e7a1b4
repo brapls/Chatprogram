@@ -1,0 +1,11 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+import javax.swing.JPanel;
+
+public class AccounSelectionForm extends JPanel {
+
+	public AccounSelectionForm() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

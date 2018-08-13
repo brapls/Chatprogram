@@ -1,0 +1,9 @@
+package ch.nyp.chatprogram.common;
+
+public class Authorization {
+
+	public Authorization() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

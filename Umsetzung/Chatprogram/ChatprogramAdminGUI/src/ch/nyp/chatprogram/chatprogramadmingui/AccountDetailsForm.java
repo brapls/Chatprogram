@@ -1,0 +1,155 @@
+package ch.nyp.chatprogram.chatprogramadmingui;
+
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import ch.nyp.chatprogram.common.UserApplication;
+import ch.nyp.chatprogram.common.UserSession;
+
+import javax.swing.JCheckBox;
+
+public class AccountDetailsForm extends JPanel {
+	private int userId = -1; // wird genutzt zum verstellen ob ein neuer Account erstellt wird oder ob ein bestehender Account geändert werden soll
+	private JTextField txtUsername;
+	private JTextField txtPassword;
+	private JTextField txtDisplayName;
+	private Class jpnlClass;
+	public AccountDetailsForm(UserApplication user, Class<?> selection) {
+		jpnlClass =selection;
+		txtUsername = new JTextField();
+		txtUsername.setColumns(10);
+		
+		txtPassword = new JTextField();
+		txtPassword.setColumns(10);
+		
+		txtDisplayName = new JTextField();
+		txtDisplayName.setColumns(10);
+		
+		JCheckBox cbIsAdmin = new JCheckBox("");
+		
+		JLabel lblUsername = new JLabel("Username");
+		
+		JLabel lblPassword = new JLabel("Passwort");
+		
+		JLabel lblDisplayName = new JLabel("Anzeigename");
+		
+		JLabel lblIsAdmin = new JLabel("Ist Admin?");
+
+		JButton btnBack = new JButton("Zur\u00FCck");
+		
+		JButton btnSave = new JButton("Speichern");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String messageError = "";
+				if(txtUsername.getText().length() < 5) 
+					messageError += "Der Username darf nicht weniger wie 5 Zeichen lang sein. \n";
+				if(txtPassword.getText().length() < 5)
+					messageError += "Das Passwort darf nicht weniger wie 5 Zeichen lang sein. \n";
+				if(txtDisplayName.getText().length() < 5)
+					messageError += "Der Anzeigename darf nicht weniger wie 5 Zeichen lang sein. \n";
+				if(messageError == "") { 	
+					UserApplication changeUserApplication = new UserApplication();
+					changeUserApplication.SetUserId(userId);
+					changeUserApplication.SetUsername(txtUsername.getText());
+					changeUserApplication.SetPassword(txtPassword.getText());
+					changeUserApplication.SetDisplayName(txtDisplayName.getText());
+					changeUserApplication.SetIsAdmin(cbIsAdmin.isSelected());
+					if(userId != -1) {// vorhandener User
+						UserApplication.UpdateUser(changeUserApplication);
+					}
+					else { // neuer User
+
+						UserApplication.InsertUser(changeUserApplication);
+					}
+
+					JOptionPane.showMessageDialog(null, "Die Änderungen wurden erfolgreich gespeichert");
+					btnBack.doClick();
+				}	
+				else {
+					JOptionPane.showMessageDialog(null, messageError);
+				}
+			}
+		});
+		
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.frame.getContentPane().removeAll();
+				try {
+					Main.frame.getContentPane().add((JPanel)jpnlClass.newInstance());
+				} catch (InstantiationException | IllegalAccessException e1) {
+					e1.printStackTrace();
+				}
+				Main.frame.getContentPane().revalidate(); 
+				Main.frame.getContentPane().repaint();
+			}
+		});
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(118)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDisplayName)
+						.addComponent(lblIsAdmin)
+						.addComponent(btnSave)
+						.addComponent(lblPassword))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+							.addComponent(txtDisplayName, Alignment.TRAILING)
+							.addComponent(txtPassword, Alignment.TRAILING))
+						.addComponent(cbIsAdmin)
+						.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+					.addGap(127))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(94)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUsername))
+					.addGap(8)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPassword))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtDisplayName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDisplayName))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblIsAdmin)
+						.addComponent(cbIsAdmin))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSave)
+						.addComponent(btnBack))
+					.addContainerGap(72, Short.MAX_VALUE))
+		);
+		setLayout(groupLayout);
+		
+		if(user != null) {
+			userId = user.GetUserId();
+			txtUsername.setText(user.GetUsername());
+			txtPassword.setText(user.GetPassword());
+			txtDisplayName.setText(user.GetdisplayName());
+			cbIsAdmin.setSelected(user.GetIsAdmin());
+		}
+	}
+}

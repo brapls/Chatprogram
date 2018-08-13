@@ -1,0 +1,79 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+
+import ch.nyp.chatprogram.common.UserSession;
+
+public class SessionObjectTableModel extends AbstractTableModel{
+
+    private List<UserSession> userSessions;
+
+    public SessionObjectTableModel(List<UserSession> userSessions) {
+
+        this.userSessions = new ArrayList<UserSession>(userSessions);
+
+    }
+
+    @Override
+    public int getRowCount() {
+        return userSessions.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 5;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+
+        Object value = "??";
+        UserSession userSession = userSessions.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                value = userSession.GetSessionId();
+                break;
+            case 1:
+                value = userSession.GetUser().GetdisplayName();
+                break;
+            case 2:
+                value = userSession.GetSessionIP();
+                break;
+            case 3:
+                value = userSession.GetLastPing();
+                break;
+            case 4:
+                value = userSession.GetToken();
+                break;
+        }
+
+        return value;
+
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        return // Return the class that best represents the column...
+    }
+
+    /* Override this if you want the values to be editable...
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        //....
+    }
+    */
+
+    /**
+     * This will return the user at the specified row...
+     * @param row
+     * @return 
+     */
+    public User getUserAt(int row) {
+        return users.get(row);
+    }
+
+}

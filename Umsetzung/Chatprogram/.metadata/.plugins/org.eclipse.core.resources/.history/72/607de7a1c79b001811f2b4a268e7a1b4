@@ -1,0 +1,9 @@
+package ch.nyp.chatprogram.chatprogramgui;
+
+public class AccountDetails {
+
+	public AccountDetails() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

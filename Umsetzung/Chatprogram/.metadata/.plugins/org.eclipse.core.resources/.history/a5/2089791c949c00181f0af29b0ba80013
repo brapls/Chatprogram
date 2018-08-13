@@ -1,0 +1,9 @@
+package ChatClient;
+
+public class ChatServer {
+
+	public ChatServer() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

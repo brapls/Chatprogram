@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;ChatClient.ChatClient.java&apos; to &apos;ChatUsers.java&apos;&#x0D;&#x0A;- Original project: &apos;ChatClientToClient&apos;&#x0D;&#x0A;- Original element: &apos;ChatClient.ChatClient.java&apos;&#x0D;&#x0A;- Renamed element: &apos;ChatClient.ChatUsers.java&apos;" description="Rename compilation unit &apos;ChatClient.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;ChatClient{ChatClient.java" name="ChatUsers.java" references="false" stamp="1533902123587" version="1.0"/>
+</session>
